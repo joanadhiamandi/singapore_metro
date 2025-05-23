@@ -7,7 +7,7 @@ def build_graph_from_csv(csv_path):
     graph = Graph()
     stations = []
 
-    # Step 1: Read the CSV and collect station info
+    #Read the CSV and collect station info
     with open(csv_path, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -19,7 +19,7 @@ def build_graph_from_csv(csv_path):
             vertex.data = name
             stations.append({'code': code, 'name': name, 'line': line, 'num': num})
 
-    # Step 2: Connect stations on the same line
+    # Connect stations on the same line
     stations.sort(key=lambda s: (s['line'], s['num']))
     for i in range(len(stations) - 1):
         curr = stations[i]
@@ -28,7 +28,7 @@ def build_graph_from_csv(csv_path):
             travel_time = random.randint(2, 8)
             graph.connect(curr['code'], next['code'], travel_time)
 
-    # Step 3: Connect interchange stations (same name, different lines)
+    # Connect interchange stations (same name, different lines)
     name_to_codes = {}
     for s in stations:
         name = s['name']
